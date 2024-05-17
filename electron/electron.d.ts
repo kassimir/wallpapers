@@ -1,4 +1,4 @@
-// Type definitions for Electron 30.0.0
+// Type definitions for Electron 30.0.6
 // Project: http://electronjs.org/
 // Definitions by: The Electron Team <https://github.com/electron/electron>
 // Definitions: https://github.com/electron/typescript-definitions
@@ -7315,8 +7315,7 @@ declare namespace Electron {
      * Resolve with an object containing the following:
      *
      * * `canceled` boolean - whether or not the dialog was canceled.
-     * * `filePath` string (optional) - If the dialog is canceled, this will be
-     * `undefined`.
+     * * `filePath` string - If the dialog is canceled, this will be an empty string.
      * * `bookmark` string (optional) _macOS_ _mas_ - Base64 encoded string which
      * contains the security scoped bookmark data for the saved file.
      * `securityScopedBookmarks` must be enabled for this to be present. (For return
@@ -7336,8 +7335,7 @@ declare namespace Electron {
      * Resolve with an object containing the following:
      *
      * * `canceled` boolean - whether or not the dialog was canceled.
-     * * `filePath` string (optional) - If the dialog is canceled, this will be
-     * `undefined`.
+     * * `filePath` string - If the dialog is canceled, this will be an empty string.
      * * `bookmark` string (optional) _macOS_ _mas_ - Base64 encoded string which
      * contains the security scoped bookmark data for the saved file.
      * `securityScopedBookmarks` must be enabled for this to be present. (For return
@@ -7355,7 +7353,7 @@ declare namespace Electron {
     showSaveDialog(options: SaveDialogOptions): Promise<Electron.SaveDialogReturnValue>;
     /**
      * the path of the file chosen by the user; if the dialog is cancelled it returns
-     * `undefined`.
+     * an empty string.
      *
      * The `browserWindow` argument allows the dialog to attach itself to a parent
      * window, making it modal.
@@ -7363,10 +7361,10 @@ declare namespace Electron {
      * The `filters` specifies an array of file types that can be displayed, see
      * `dialog.showOpenDialog` for an example.
      */
-    showSaveDialogSync(browserWindow: BrowserWindow, options: SaveDialogSyncOptions): (string) | (undefined);
+    showSaveDialogSync(browserWindow: BrowserWindow, options: SaveDialogSyncOptions): string;
     /**
      * the path of the file chosen by the user; if the dialog is cancelled it returns
-     * `undefined`.
+     * an empty string.
      *
      * The `browserWindow` argument allows the dialog to attach itself to a parent
      * window, making it modal.
@@ -7374,7 +7372,7 @@ declare namespace Electron {
      * The `filters` specifies an array of file types that can be displayed, see
      * `dialog.showOpenDialog` for an example.
      */
-    showSaveDialogSync(options: SaveDialogSyncOptions): (string) | (undefined);
+    showSaveDialogSync(options: SaveDialogSyncOptions): string;
   }
 
   interface Display {
@@ -13851,6 +13849,10 @@ declare namespace Electron {
      * View
      */
     constructor();
+    /**
+     * If the same View is added to a parent which already contains it, it will be
+     * reordered such that it becomes the topmost view.
+     */
     addChildView(view: View, index?: number): void;
     /**
      * The bounds of this View, relative to its parent.
@@ -20499,9 +20501,9 @@ declare namespace Electron {
      */
     canceled: boolean;
     /**
-     * If the dialog is canceled, this will be `undefined`.
+     * If the dialog is canceled, this will be an empty string.
      */
-    filePath?: string;
+    filePath: string;
     /**
      * Base64 encoded string which contains the security scoped bookmark data for the
      * saved file. `securityScopedBookmarks` must be enabled for this to be present.
